@@ -15,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   final _userController = TextEditingController();
 
   final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -32,28 +33,38 @@ class _LoginPageState extends State<LoginPage> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                TextFormField(
-                  controller: _userController,
-                  decoration: InputDecoration(
-                      border: UnderlineInputBorder(), labelText: 'User name'),
-                ),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                      border: UnderlineInputBorder(), labelText: 'Password'),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      passwordCheck(context);
-                    },
-                    child: Text('Login'))
-              ],
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextFormField(
+                    controller: _userController,
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(), labelText: 'User name'),
+                    validator: (value) => value == null || value.isEmpty
+                        ? 'Username or Password not correct'
+                        : null,
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(), labelText: 'Password'),
+                    validator: (value) => value == null || value.isEmpty
+                        ? 'Username or Password not correct'
+                        : null,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        _formKey.currentState!.validate();
+                        passwordCheck(context);
+                      },
+                      child: Text('Login'))
+                ],
+              ),
             ),
           ),
         ));

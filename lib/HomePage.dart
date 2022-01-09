@@ -4,7 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'List.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+  int len = list.length;
 
   @override
   Widget build(BuildContext context) {
@@ -19,17 +20,19 @@ class HomePage extends StatelessWidget {
               icon: Icon(Icons.exit_to_app))
         ],
       ),
-      body: ListView.separated(
-          itemBuilder: (ctx, index) => ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://www.pinkvilla.com/imageresize/thalapathy_vijay_case_filed.jpg?width=752&format=webp&t=pvorg'),
+      body: SafeArea(
+        child: ListView.separated(
+            itemBuilder: (ctx, index) => ListTile(
+                  leading: CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage(list[index]['imgurl']),
+                  ),
+                  title: Text(list[index]['name']),
+                  subtitle: Text(list[index]['sub']),
                 ),
-                title: Text('PERSON $index'),
-                subtitle: Text('person $index'),
-              ),
-          separatorBuilder: (ctx, index) => Divider(),
-          itemCount: 30),
+            separatorBuilder: (ctx, index) => Divider(),
+            itemCount: len),
+      ),
     );
   }
 

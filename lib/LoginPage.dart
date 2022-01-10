@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('LoginPage'),
+          title: Center(child: Text('LoginPage')),
         ),
         body: SafeArea(
           child: Padding(
@@ -39,21 +39,31 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   TextFormField(
-                    controller: _userController,
-                    decoration: InputDecoration(
-                        border: UnderlineInputBorder(), labelText: 'User name'),
-                    validator: (value) => value == null || value.isEmpty
-                        ? 'Username or Password not correct'
-                        : null,
-                  ),
+                      controller: _userController,
+                      decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'User name'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter username';
+                        }
+                        if (_userController.text != 'abhi') {
+                          return 'Username not match';
+                        }
+                      }),
                   TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                        border: UnderlineInputBorder(), labelText: 'Password'),
-                    validator: (value) => value == null || value.isEmpty
-                        ? 'Username or Password not correct'
-                        : null,
-                  ),
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Password'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Password';
+                        }
+                        if (_passwordController.text != 'jith') {
+                          return 'Password not match';
+                        }
+                      }),
                   SizedBox(
                     height: 30,
                   ),

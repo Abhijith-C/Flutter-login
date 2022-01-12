@@ -27,7 +27,10 @@ class HomePage extends StatelessWidget {
                     radius: 40,
                     backgroundImage: NetworkImage(list[index]['imgurl']),
                   ),
-                  title: Text(list[index]['name']),
+                  title: Text(
+                    list[index]['name'],
+                    style: TextStyle(fontFamily: 'Pacifico'),
+                  ),
                   subtitle: Text(list[index]['sub']),
                 ),
             separatorBuilder: (ctx, index) => Divider(),
